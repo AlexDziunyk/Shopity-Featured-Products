@@ -18,6 +18,7 @@
 {% endschema %}
 
 {{ 'featured-products.scss.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'featured-products.js' | asset_url }}" defer="defer"></script>
 
 {% assign collection = collections[section.settings.collection] %}
 {% assign products = collection.products %}
@@ -43,7 +44,12 @@
         <h3 class="featured-products__card-title">
           <a href="{{ product.url }}" class="featured-products__card-title_link">{{ product.title }}</a>
         </h3>
-        <button class="featured-products__card-button">Add to cart - {{ product.price | money }}</button>
+        <button
+          onclick="addToCart({{product.variants.first.id}})"
+          class="featured-products__card-button"
+        >
+          Add to cart - {{ product.price | money }}
+        </button>
       </div>
     {% endfor %}
   </div>
