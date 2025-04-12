@@ -23,6 +23,11 @@
 {% assign collection = collections[section.settings.collection] %}
 {% assign products = collection.products %}
 
+{% assign cart_ids = '' %}
+{% for item in cart.items %}
+  {% assign cart_ids = cart_ids | append: item.variant_id | append: ',' %}
+{% endfor %}
+
 <script>
   const products = {{ products | json }};
   console.log("Products in collection:", products);
@@ -32,25 +37,27 @@
   <h2 class="featured-products__title">Featured Products</h2>
   <div class="featured-products__grid">
     {% for product in products %}
-      <div class="featured-products__card">
-        <img
-          class="featured-products__card-image"
-          width="{{ product.featured_media.width }}"
-          height="{{ product.featured_media.height }}"
-          loading="lazy"
-          src="{{ product.featured_image | image_url  }}"
-          alt="{{ product.title }}"
-        >
-        <h3 class="featured-products__card-title">
-          <a href="{{ product.url }}" class="featured-products__card-title_link">{{ product.title }}</a>
-        </h3>
-        <button
-          onclick="addToCart({{product.variants.first.id}})"
-          class="featured-products__card-button"
-        >
-          Add to cart - {{ product.price | money }}
-        </button>
-      </div>
+      {% unless cart_ids contains product.variants.first.id %}
+        <div class="featured-products__card">
+          <img
+            class="featured-products__card-image"
+            width="{{ product.featured_media.width }}"
+            height="{{ product.featured_media.height }}"
+            loading="lazy"
+            src="{{ product.featured_image | image_url  }}"
+            alt="{{ product.title }}"
+          >
+          <h3 class="featured-products__card-title">
+            <a href="{{ product.url }}" class="featured-products__card-title_link">{{ product.title }}</a>
+          </h3>
+          <button
+            onclick="addToCart({{product.variants.first.id}})"
+            class="featured-products__card-button"
+          >
+            Add to cart - {{ product.price | money }}
+          </button>
+        </div>
+      {% endunless %}
     {% endfor %}
   </div>
 </div>
