@@ -1,0 +1,50 @@
+{% schema %}
+{
+  "name": "Featured Products",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Choose a collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Products"
+    }
+  ]
+}
+{% endschema %}
+
+{{ 'featured-products.scss.css' | asset_url | stylesheet_tag }}
+
+{% assign collection = collections[section.settings.collection] %}
+{% assign products = collection.products %}
+
+<script>
+  const products = {{ products | json }};
+  console.log("Products in collection:", products);
+</script>
+
+<div class="featured-products page-width-desktop">
+  <h2 class="featured-products__title">Featured Products</h2>
+  <div class="featured-products__grid">
+    {% for product in products %}
+      <div class="featured-products__card">
+        <img
+          class="featured-products__card-image"
+          width="{{ product.featured_media.width }}"
+          height="{{ product.featured_media.height }}"
+          loading="lazy"
+          src="{{ product.featured_image | image_url  }}"
+          alt="{{ product.title }}"
+        >
+        <h3 class="featured-products__card-title">
+          <a href="{{ product.url }}" class="featured-products__card-title_link">{{ product.title }}</a>
+        </h3>
+        <button class="featured-products__card-button">Add to cart - {{ product.price | money }}</button>
+      </div>
+    {% endfor %}
+  </div>
+</div>

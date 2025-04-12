@@ -1,0 +1,81 @@
+$text-color: #656874;
+$primary-color: #464b90;
+$secondary-color: #5e63ad;
+
+.featured-products {
+  .featured-products__title {
+    color: $text-color;
+    color: #656874;
+    text-align: center;
+    font-family: "Gothic A1";
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 36px;
+
+    @media screen and(min-width: 990px) {
+      font-size: 42px;
+      line-height: 42px;
+    }
+  }
+
+  .featured-products__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 50px;
+
+    @media screen and(min-width: 990px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+
+    .featured-products__card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .featured-products__card-image {
+        width: 100%;
+        height: auto;
+      }
+
+      .featured-products__card-title {
+        margin-bottom: 0;
+        margin-top: 30px;
+
+        .featured-products__card-title_link {
+          text-decoration: none;
+          color: $text-color;
+          text-align: center;
+          font-family: "Gothic A1";
+          font-size: 22px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 42px;
+        }
+      }
+
+      .featured-products__card-button {
+        cursor: pointer;
+        margin-top: 11px;
+        padding: 18px 0;
+        width: 285px;
+        border-radius: 40px;
+        border: 1px solid $primary-color;
+        background: $primary-color;
+        color: #fff;
+        text-align: center;
+        font-family: "Gothic A1";
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 26px;
+
+        &:active {
+          border: 1px solid $secondary-color;
+          background: $secondary-color;
+        }
+      }
+    }
+  }
+}
