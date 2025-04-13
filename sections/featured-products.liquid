@@ -19,6 +19,7 @@
 
 {{ 'featured-products.scss.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'featured-products.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
 
 {% assign collection = collections[section.settings.collection] %}
 {% assign products = collection.products %}
@@ -33,31 +34,41 @@
   console.log("Products in collection:", products);
 </script>
 
-<div class="featured-products page-width-desktop">
-  <h2 class="featured-products__title">Featured Products</h2>
-  <div class="featured-products__grid">
-    {% for product in products %}
-      {% unless cart_ids contains product.variants.first.id %}
-        <div class="featured-products__card">
-          <img
-            class="featured-products__card-image"
-            width="{{ product.featured_media.width }}"
-            height="{{ product.featured_media.height }}"
-            loading="lazy"
-            src="{{ product.featured_image | image_url  }}"
-            alt="{{ product.title }}"
-          >
-          <h3 class="featured-products__card-title">
-            <a href="{{ product.url }}" class="featured-products__card-title_link">{{ product.title }}</a>
-          </h3>
-          <button
-            onclick="addToCart({{product.variants.first.id}})"
-            class="featured-products__card-button"
-          >
-            Add to cart - {{ product.price | money }}
-          </button>
-        </div>
-      {% endunless %}
-    {% endfor %}
+<featured-products-section>
+  <div class="featured-products page-width-desktop">
+    <h2 class="featured-products__title">Featured Products</h2>
+    <div class="featured-products__grid">
+      {% for product in products %}
+        {% unless cart_ids contains product.variants.first.id %}
+          <div class="featured-products__card">
+            <img
+              class="featured-products__card-image"
+              width="{{ product.featured_media.width }}"
+              height="{{ product.featured_media.height }}"
+              loading="lazy"
+              src="{{ product.featured_image | image_url  }}"
+              alt="{{ product.title }}"
+            >
+            <h3 class="featured-products__card-title">
+              <a href="{{ product.url }}" class="featured-products__card-title_link">{{ product.title }}</a>
+            </h3>
+            <product-form class="product-form" data-section-id="{{ section.id }}">
+              {% form 'product', product %}
+                <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                <button
+                  data-product-id="{{product.variants.first.id}}"
+                  class="featured-products__card-button"
+                  type="submit"
+                  name="add"
+                >
+                  <span>Add to cart</span>
+                  <span class="featured-products__card-loading">{%- render 'loading-spinner' -%}</span>
+                </button>
+              {% endform %}
+            </product-form>
+          </div>
+        {% endunless %}
+      {% endfor %}
+    </div>
   </div>
-</div>
+</featured-products-section>
