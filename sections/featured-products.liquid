@@ -29,10 +29,6 @@
   {% assign cart_ids = cart_ids | append: item.variant_id | append: ',' %}
 {% endfor %}
 
-<script>
-  const products = {{ products | json }};
-  console.log("Products in collection:", products);
-</script>
 
 <featured-products-section>
   <div class="featured-products page-width-desktop">
