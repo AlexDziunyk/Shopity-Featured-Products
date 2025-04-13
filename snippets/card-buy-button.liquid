@@ -1,0 +1,14 @@
+<product-form class="product-form" data-section-id="{{ section.id }}">
+  {% form 'product', product %}
+    <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+    <button
+      data-product-id="{{product.variants.first.id}}"
+      class="featured-products__card-button"
+      type="submit"
+      name="add"
+    >
+      <span>Add to cart</span>
+      <span class="featured-products__card-loading">{%- render 'loading-spinner' -%}</span>
+    </button>
+  {% endform %}
+</product-form>

@@ -1,0 +1,14 @@
+<div class="featured-products__card">
+  <img
+    class="featured-products__card-image"
+    width="{{ product.featured_media.width }}"
+    height="{{ product.featured_media.height }}"
+    loading="lazy"
+    src="{{ product.featured_image | image_url  }}"
+    alt="{{ product.title }}"
+  >
+  <h3 class="featured-products__card-title">
+    <a href="{{ product.url }}" class="featured-products__card-title_link">{{ product.title }}</a>
+  </h3>
+  {% render 'card-buy-button', product: product %}
+</div>
