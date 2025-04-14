@@ -13,3 +13,7 @@
 1. Type ```shopify theme push --store {{YOUR STORE}}``` to push this theme into your store.
 2. Choose appropriate variant for you: you can modify your current theme or create a new one.
 3. Go to your admin panel and choose this theme.
+
+## How does section Featured Products look?
+
+![Screenshot_145](https://github.com/user-attachments/assets/c7caf86d-0531-448e-b9ed-785d8cf9c313)
