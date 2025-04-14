@@ -29,11 +29,10 @@
   {% assign cart_ids = cart_ids | append: item.variant_id | append: ',' %}
 {% endfor %}
 
-
 <featured-products-section>
   <div class="featured-products page-width-desktop">
     <h2 class="featured-products__title">Featured Products</h2>
-    <div class="featured-products__grid">
+    <div class="featured-products__grid" data-section-id="{{section.id}}">
       {% for product in products %}
         {% unless cart_ids contains product.variants.first.id %}
           {% render 'featured-products-card', product: product %}

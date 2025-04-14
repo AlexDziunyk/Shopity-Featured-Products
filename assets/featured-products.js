@@ -43,9 +43,11 @@ class FeaturedProductsSection extends HTMLElement {
   }
 
   async rerenderFeaturedProductsSection() {
+    const sectionId = this.querySelector(".featured-products__grid").dataset
+      .sectionId;
+
     const response = await fetch(
-      window.Shopify.routes.root +
-        "?section_id=template--18418472353959__featured_products_XEiJJy"
+      window.Shopify.routes.root + `?section_id=${sectionId}`
     );
     const html = await response.text();
     const parser = new DOMParser();
